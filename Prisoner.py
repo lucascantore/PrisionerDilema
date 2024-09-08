@@ -1,8 +1,9 @@
 """
 Prisoner superclass
 """
-class Prisoner():
 
+
+class Prisoner():
     """
     Constructor. Called once at the start of each match.
     If needed, override this method to initialize any 
@@ -10,16 +11,18 @@ class Prisoner():
     Prisoner's strategy. This data will persist between
     rounds of a match but not between matches.
     """
+
     def __init__(self):
         pass
-    
+
     """
     Pick a strategy: return True to cooperate; return False to defect.
     If not overridden, the Prisoner will always cooperate.
     """
+
     def pick_strategy(self):
         return True
-    
+
     """
     Process the results of a round. This provides an opportunity to
     store data that preserves memory of previous rounds.
@@ -32,5 +35,6 @@ class Prisoner():
     other_strategy: bool
         The opponent's strategy
     """
+
     def process_results(self, my_strategy, other_strategy):
         pass

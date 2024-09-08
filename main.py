@@ -3,28 +3,42 @@
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 from Tournament import Tournament
-from ElGuason import ElGuason
-from GreedyWizard import GreedyWizard
-from Random import Random
-from Lucifer import Lucifer
-from GreedyWizard2 import GreedyWizard2
-from NotSoGreedyWizard import NotSoGreedyWizard
+from players.Random import Random
+from players.GoodBoy import GoodBoy
+from CodeGenerator import CodeGenerator
 
-def run():
-  competing = [ GreedyWizard, GreedyWizard2, NotSoGreedyWizard, Random]
-  a = Tournament(competing,20)
-  a.round_robin()
-  print(a.scores)
+from players.Lucifer import Lucifer
+from players.teammates_lucifer.TeammateLuciferPointGiver import TeammateLuciferPointGiver
+from players.teammates_lucifer.TeammateLuciferPointReceiver import TeammateLuciferPointReceiver
 
-  m=max(a.scores)
-  winners=[]
-  for i in range(len(competing)):
-       if a.scores[i] == m:
-         winners.extend([i])
-  print("ganadores: ",winners)
+from players.TipForTat import TipForTat
+from players.teammates_tipfortat.TeammateTipForTatPointGiver import TeammateTipForTatPointGiver
+from players.teammates_tipfortat.TeammateTipForTatPointReceiver import TeammateTipForTatPointReceiver
+
+
+def run_tournament():
+    competing = [
+        TeammateTipForTatPointGiver, TeammateTipForTatPointReceiver,
+        TeammateLuciferPointGiver, TeammateLuciferPointReceiver,
+    ]
+    t = Tournament(competing, 2000)
+    t.round_robin()
+    print(t.scores)
+
+    m = max(t.scores)
+    winners = []
+    for i in range(len(competing)):
+        if t.scores[i] == m:
+            winners.extend([i])
+
+    print("Ganadores: ")
+    for w in winners:
+        print(competing[w].__name__)
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    run()
+    # print(CodeGenerator().generate_code(20))
+    run_tournament()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
