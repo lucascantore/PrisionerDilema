@@ -11,6 +11,7 @@ class TeammateTipForTatPointReceiver(Prisoner):
         ]
         self.code_state = 0
         self.next_strategy = True
+        self.grace = True
 
     # Esta función determina la estrategia a usar en cada ronda
 
@@ -36,7 +37,12 @@ class TeammateTipForTatPointReceiver(Prisoner):
 
     def process_results(self, my_strategy, other_strategy):
         if self.code_state == -1:
-            self.next_strategy = other_strategy
+            if self.grace:
+                # once we switch to TipForTat, we let one slide
+                self.grace = False
+                self.next_strategy = True
+            else:
+                self.next_strategy = other_strategy
 
         elif self.code_state < len(self.code):
             # todavia estoy viendo si es mi aliado
