@@ -13,6 +13,10 @@ class TeammateTipForTatPointReceiver(Prisoner):
         self.next_strategy = True
         self.grace = True
 
+    @staticmethod
+    def name():
+        return "TeammateTipForTatPointReceiver"
+
     # Esta función determina la estrategia a usar en cada ronda
 
     def pick_strategy(self):

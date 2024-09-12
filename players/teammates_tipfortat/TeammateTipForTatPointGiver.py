@@ -4,7 +4,7 @@ from Prisoner import Prisoner
 class TeammateTipForTatPointGiver(Prisoner):
 
     def __init__(self):
-        self.name = "TeammateTipForTatPointReceiver"  # nombre completo a imprimir
+        self.name = "TeammateTipForTatPointGiver"  # nombre completo a imprimir
         self.code = [
             True, True, True, False, False, False, False, True, False, False,
             # False, False, False, False, True, False, False, False, False, True
@@ -12,6 +12,10 @@ class TeammateTipForTatPointGiver(Prisoner):
         self.code_state = 0
         self.next_strategy = True
         self.grace = True
+
+    @staticmethod
+    def name():
+        return "TeammateTipForTatPointGiver"
 
     # Esta función determina la estrategia a usar en cada ronda
 

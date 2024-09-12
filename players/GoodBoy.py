@@ -19,6 +19,10 @@ class GoodBoy(Prisoner):
     def __init__(self):
         self.name = "GoodBoy"  # nombre completo a imprimir
 
+    @staticmethod
+    def name():
+        return "GoodBoy"
+
     """
     forgive: 
     state: state of automata    

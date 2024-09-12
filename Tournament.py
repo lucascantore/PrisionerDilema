@@ -100,11 +100,11 @@ class Tournament:
 
         # Return scores
         # print('puntajes: (', score1, ',', score2, ')')
-        return (score1, score2)
+        return score1, score2
 
     """
-  Play a round robin
-  """
+    Play a round robin tournament
+    """
 
     def round_robin(self):
 
@@ -121,16 +121,33 @@ class Tournament:
             self.scores[match[0]] += score1
             self.scores[match[1]] += score2
 
+    def get_winners_index(self):
+        m = max(self.scores)
+        winners = []
+        for i in range(len(self.competing)):
+            if self.scores[i] == m:
+                winners.extend([i])
 
-def run():
-    competing = [GreedyWizard, ElGuason]
-    a = Tournament(competing, 1000)
-    a.round_robin()
-    print(a.scores)
+        return winners
 
-    m = max(a.scores)
-    winners = []
-    for i in range(len(competing)):
-        if a.scores[i] == m:
-            winners.extend([i])
-    print("ganadores: ", winners)
+    def get_winners_name(self):
+        return list(map(lambda i: self.competing[i].name(), self.get_winners_index()))
+
+    def results(self):
+        return list(map(
+            lambda i: {
+                "name": self.competing[i].name(),
+                "score": self.scores[i]
+            },
+            list(range(len(self.competing))))
+        )
+
+    def reset_tournament(self):
+        self.scores = len(self.competing) * [0]
+
+
+def run_round_robin_tournament(competing, n_rounds=50):
+    t = Tournament(competing, n_rounds)
+    t.round_robin()
+
+    return t.results()

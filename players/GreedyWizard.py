@@ -23,6 +23,10 @@ class GreedyWizard(Prisoner):
         self.state = "A"
         self.timeStuck = 0
 
+    @staticmethod
+    def name():
+        return "GreedyWizard"
+
     """
     forgive: 
     state: state of automata    

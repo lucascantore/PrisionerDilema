@@ -7,6 +7,10 @@ class TipForTat(Prisoner):
         self.name = "TipForTat"  # nombre completo a imprimir
         self.next_strategy = True
 
+    @staticmethod
+    def name():
+        return "TipForTat"
+
     # Esta función determina la estrategia a usar en cada ronda
 
     def pick_strategy(self):

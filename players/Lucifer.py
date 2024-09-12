@@ -6,6 +6,9 @@ class Lucifer(Prisoner):
     def __init__(self):
         self.name = "Lucifer"  # nombre completo a imprimir
 
+    @staticmethod
+    def name():
+        return "Lucifer"
     # Esta función determina la estrategia a usar en cada ronda
 
     def pick_strategy(self):

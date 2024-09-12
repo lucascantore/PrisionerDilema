@@ -4,12 +4,16 @@ from Prisoner import Prisoner
 class TeammateLuciferPointReceiver(Prisoner):
 
     def __init__(self):
-        self.name = "TeammatePointReceiver"  # nombre completo a imprimir
+        self.name = "TeammateLuciferPointReceiver"  # nombre completo a imprimir
         self.code = [
             True, True, False, False, False, True, True, False, True, True,
             # True, False, True, False, True, True, False, True, True, True
         ]
         self.code_state = 0
+
+    @staticmethod
+    def name():
+        return "TeammateLuciferPointReceiver"
 
     # Esta función determina la estrategia a usar en cada ronda
 

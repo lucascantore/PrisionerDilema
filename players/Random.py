@@ -20,6 +20,10 @@ class Random(Prisoner):
     def __init__(self):
         self.name = "Random"  # nombre completo a imprimir
 
+    @staticmethod
+    def name():
+        return "Random"
+
     """
     forgive: 
     state: state of automata    

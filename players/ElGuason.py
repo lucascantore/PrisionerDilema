@@ -23,6 +23,10 @@ class ElGuason(Prisoner):
         self.other_strategy = True  # asumo (arbitrariamente) que el oponente arranca cooperando
         self.name = "El Guasón"  # nombre completo a imprimir
 
+    @staticmethod
+    def name():
+        return "El Guasón"
+
     """
     N : nro. total de rondas hasta ahora
     C : cantidad de veces que cooperé
