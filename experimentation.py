@@ -7,83 +7,19 @@ from players.GoodBoy import GoodBoy
 from players.TipForTat import TipForTat
 from players.teammates_tipfortat.TeammateTipForTatPointGiver import TeammateTipForTatPointGiver
 from players.teammates_tipfortat.TeammateTipForTatPointReceiver import TeammateTipForTatPointReceiver
+from players.teammate_dalecooper.TeammateDaleCooperGiver import TeammateDaleCooperGiver
+from players.teammate_dalecooper.TeammateDaleCooperReceiver import TeammateDaleCooperReceiver
+from players.students_players.DaleCooper import DaleCooper
 
-from Prisoner import create_dynamic_prisoner_class
-
-# tournament
-from Tournament import run_round_robin_tournament
-
-# excel formatting
-import pandas as pd
-from openpyxl import load_workbook
-from openpyxl.formatting.rule import FormulaRule
-from openpyxl.styles import PatternFill
-import openpyxl
-import math
+# Tools
+from experimentationTools import run_experiment_with, list_of_players
 from itertools import product
+import openpyxl
 
-
-def list_of_players(base_player, amount_of_players):
-    player_list = []
-    for i in range(amount_of_players):
-        player_list = player_list + [create_dynamic_prisoner_class(base_player, f"{base_player.name()}_{i}")]
-
-    return player_list
-
-
-# we only support up to 675 players
-def excel_column_number_for(number):
-    first_letter_index = math.floor(number / 26)
-    second_letter_index = number % 26
-
-    if first_letter_index > 0:
-        return f"{chr(65 + first_letter_index)}{chr(65 + second_letter_index)}"
-    else:
-        return f"{chr(65 + second_letter_index)}"
-
-
-def format_results_to_excel(results, competing_players, excel_name):
-    data = {
-        "Games Played": list(results.keys())
-    }
-
-    for element in competing_players:
-        data[element.name()] = []
-
-    for key in results:
-        for element in results[key]:
-            data[element["name"]] = data[element["name"]] + [element["score"]]
-
-    df = pd.DataFrame(data)
-    df.to_excel(excel_name, index=False)
-
-    wb = load_workbook(excel_name)
-    ws = wb.active
-
-    highlight_fill = PatternFill(start_color='FFFF00', end_color='FFFF00', fill_type='solid')
-
-    for row in range(2, len(results.keys()) + 2):
-        formula = f'B{row}=MAX($B{row}:${excel_column_number_for(len(competing_players))}{row})'
-        rule = FormulaRule(formula=[formula], fill=highlight_fill)
-
-        # Apply the rule to the row
-        ws.conditional_formatting.add(f'B{row}:{excel_column_number_for(len(competing_players))}{row}', rule)
-
-    wb.save(excel_name)  # Save to a new file or overwrite the existing one
-
-
-def run_experiment_with(competing_agents, max_n_rounds, excel_name):
-    print("started experiment for: ", list(map(lambda a: a.name(), competing_agents)))
-    results = {}
-    n_rounds = 5
-    while n_rounds <= max_n_rounds:
-        results[f"{n_rounds}"] = run_round_robin_tournament(competing_agents, n_rounds)
-        if n_rounds < 100:
-            n_rounds += 5
-        else:
-            n_rounds += 10
-
-    format_results_to_excel(results, competing_agents, excel_name)
+from experimentation_with_students_players import run_experiment_with_students_players, \
+    run_experiment_with_student_players_and_teammate_dale_cooper, test_all_out_war_with_less_participants, \
+    test_all_out_war_single_tournament, test_all_out_war_high_numbers, test_all_out_war_high_numbers_and_nathan, \
+    test_all_out_war_with_less_randomness
 
 
 def teammates_lucifer_vs_lucifer(max_rounds):
@@ -253,9 +189,9 @@ def teammates_tipfortat_vs_teammates_lucifer_vs_random_vs_tipfortat_vs_lucifer_v
     )
 
 
-def multiple_everything_with_all_agents(max_rounds):
+def multiple_everything_with_all_classic_agents(max_rounds):
     range_of_players = range(1, 6)
-    result_number = 17
+    result_number = 19
     for num_random_players, num_tipfortat_players, num_lucifer_players, num_goodboy_players in product(range_of_players,
                                                                                                        repeat=4):
         run_experiment_with(
@@ -273,7 +209,7 @@ def multiple_everything_with_all_agents(max_rounds):
 
 def analyze_final_results():
     range_of_players = range(1, 6)
-    result_number = 17
+    result_number = 19
 
     # Create a new workbook to store the results
     result_wb = openpyxl.Workbook()
@@ -321,11 +257,8 @@ def analyze_final_results():
     result_wb.save("experiment_results/analysis_results.xlsx")
 
 
-
-
-
 def run_all_experiments():
-    max_rounds = 2500
+    max_rounds = 1300
     # teammates_lucifer_vs_lucifer(max_rounds)
     # teammates_lucifer_vs_random_vs_lucifer(max_rounds)
     # teammates_lucifer_vs_goodboy_vs_lucifer(max_rounds)
@@ -342,6 +275,15 @@ def run_all_experiments():
     # teammates_tipfortat_vs_lucifer(max_rounds)
     # teammates_tipfortat_vs_random_vs_lucifer(max_rounds)
     # teammates_tipfortat_vs_teammates_lucifer_vs_random_vs_tipfortat_vs_lucifer_vs_goodboy(max_rounds)
-    # multiple_everything_with_all_agents(max_rounds)
-    analyze_final_results()
 
+    # run_experiment_with_students_players(max_rounds)
+    # run_experiment_with_student_players_and_teammate_dale_cooper(max_rounds)
+
+    # test_all_out_war_with_less_participants(max_rounds)
+    # test_all_out_war_single_tournament(max_rounds)
+    # test_all_out_war_high_numbers(200, max_rounds)
+    # test_all_out_war_high_numbers_and_nathan(1100, 1300) 
+    # test_all_out_war_with_less_randomness(5, 2900)
+
+    # multiple_everything_with_all_classic_agents(max_rounds)
+    # analyze_final_results()
