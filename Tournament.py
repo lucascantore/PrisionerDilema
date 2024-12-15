@@ -1,9 +1,6 @@
 from itertools import combinations
 from random import shuffle
 
-from players import ElGuason
-from players import GreedyWizard
-
 """
 Prisoners' dilemma tournament
 """
@@ -151,6 +148,4 @@ def run_round_robin_tournament(competing, n_rounds=50):
     t.round_robin()
 
     return t.results()
-
-# We would like to know which of two players would win in a torunament (just the two of them)
 
