@@ -11,7 +11,7 @@ class NashEquilibrium(Enum):
     NONE = 5
 
 
-def write_results_in_excel(tuples_array, excel_name):
+def write_results_of_nash_equilibrium_in_excel(tuples_array, excel_name):
     # Define colors for each Enum value
     color_map = {
         NashEquilibrium.TOP_LEFT: "00FF00",  # Green
@@ -106,40 +106,20 @@ def nash_equilibrium_is_top_left(matrix):
     return top_left_value(matrix)[0] > bottom_left_value(matrix)[0] and \
         top_left_value(matrix)[1] > top_right_value(matrix)[1]
 
-    # return top_left_value(matrix)[0] > bottom_left_value(matrix)[0] and \
-    #    top_right_value(matrix)[0] > bottom_right_value(matrix)[0] and \
-    #    top_left_value(matrix)[1] > top_right_value(matrix)[1] and \
-    #    bottom_left_value(matrix)[1] > bottom_right_value(matrix)[1]
-
 
 def nash_equilibrium_is_top_right(matrix):
     return top_right_value(matrix)[0] > bottom_right_value(matrix)[0] and \
         top_left_value(matrix)[1] < top_right_value(matrix)[1]
-
-    # return top_left_value(matrix)[0] > bottom_left_value(matrix)[0] and \
-    #     top_right_value(matrix)[0] > bottom_right_value(matrix)[0] and \
-    #     top_left_value(matrix)[1] < top_right_value(matrix)[1] and \
-    #     bottom_left_value(matrix)[1] < bottom_right_value(matrix)[1]
 
 
 def nash_equilibrium_is_bottom_left(matrix):
     return top_left_value(matrix)[0] < bottom_left_value(matrix)[0] and \
         bottom_left_value(matrix)[1] > bottom_right_value(matrix)[1]
 
-    # return top_left_value(matrix)[0] < bottom_left_value(matrix)[0] and \
-    #     top_right_value(matrix)[0] < bottom_right_value(matrix)[0] and \
-    #     top_left_value(matrix)[1] > top_right_value(matrix)[1] and \
-    #     bottom_left_value(matrix)[1] > bottom_right_value(matrix)[1]
-
 
 def nash_equilibrium_is_bottom_right(matrix):
     return top_right_value(matrix)[0] < bottom_right_value(matrix)[0] and \
         bottom_left_value(matrix)[1] < bottom_right_value(matrix)[1]
-
-    # return top_left_value(matrix)[0] < bottom_left_value(matrix)[0] and \
-    #     top_right_value(matrix)[0] < bottom_right_value(matrix)[0] and \
-    #     top_left_value(matrix)[1] < top_right_value(matrix)[1] and \
-    #     bottom_left_value(matrix)[1] < bottom_right_value(matrix)[1]
 
 
 def test_for_nash_equilibrium(m, excel_name):
@@ -177,7 +157,7 @@ def test_for_nash_equilibrium(m, excel_name):
                          nash_equilibriums)
                     )
 
-    write_results_in_excel(give_and_receive_for_matrixes, excel_name)
+    write_results_of_nash_equilibrium_in_excel(give_and_receive_for_matrixes, excel_name)
 
 
 if __name__ == '__main__':
